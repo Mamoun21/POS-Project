@@ -4,4 +4,4 @@ import Login from './Login';
 storiesOf("login story", module)
   .add("login form", () => (
     <Login/>
-  ))
+  ));

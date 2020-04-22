@@ -8,7 +8,12 @@ import Copyright from './Copyright';
 import useStyles from './style';
 import LogoImage from '../aa.png';
 import getUserLogin from '../API/getUserLogin';
-const Login = (props: any) => {
+export interface IProps {
+  history: {
+    push(url: string): void;
+  };
+}
+const Login = (props: IProps | any) => {
   const classes = useStyles();
   const [user, setLoginUser] = useState([]);
   const [error, setError] = useState(false);
@@ -16,13 +21,13 @@ const Login = (props: any) => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(false);
-  const handleUserName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeUserName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
   }
-  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const letterNumber:RegExp = /^[0-9a-zA-Z]+$/;
-    const eventPassword= event.target.value;
-    if (eventPassword.length >= 4 && eventPassword.match(letterNumber)) {
+  const handleChangePassWord = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const letterAndNumber: RegExp = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
+    const eventPassword = event.target.value;
+    if (eventPassword.length >= 4 && eventPassword.match(letterAndNumber)) {
       setError(false);
       setHelperText('');
       setPassword(event.target.value);
@@ -38,8 +43,8 @@ const Login = (props: any) => {
     getUserLogin().then(res => {
       setLoginUser(res);
     });
-  });
-  const handleLoginButton = () => {
+  }, []);
+  const handleLogin = () => {
     for (let i in user) {
       if (user[i]['name'] === username && user[i]['password'] === password) {
         props.history.push('/home');
@@ -55,7 +60,7 @@ const Login = (props: any) => {
           <Typography component="h1" variant="h5">
             Login to Your Account
         </Typography>
-          <form className={classes.form}>
+          <form onSubmit={handleLogin} className={classes.form}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -63,7 +68,7 @@ const Login = (props: any) => {
               fullWidth
               defaultValue={username}
               autoFocus
-              onChange={handleUserName}
+              onChange={handleChangeUserName}
             />
             <TextField
               variant="outlined"
@@ -77,7 +82,7 @@ const Login = (props: any) => {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={handlePassword}
+              onChange={handleChangePassWord}
             />
             <Button
               type="submit"
@@ -86,7 +91,6 @@ const Login = (props: any) => {
               color="primary"
               className={classes.submit}
               disabled={disabled}
-              onClick={handleLoginButton}
             >
               Login
           </Button>
