@@ -15,6 +15,7 @@
     "@types/react-router": "^5.1.5",
     "@types/react-router-dom": "^5.1.4",
     "axios": "^0.19.2",
+    "classnames": "^2.2.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router": "^5.1.2",
@@ -48,6 +49,7 @@
   },
   "devDependencies": {
     "@storybook/react": "^5.3.18",
+    "@types/classnames": "^2.2.10",
     "@types/storybook-react-router": "^1.0.1",
     "@types/storybook__react": "^5.2.1",
     "storybook-react-router": "^1.0.8"

@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Copyright from './Copyright';
 import useStyles from './style';
-import LogoImage from '../aa.png';
+import LogoImage from '../images/aa.png';
 import getUserLogin from '../API/getUserLogin';
 export interface IProps {
   history: {
